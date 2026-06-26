@@ -1,0 +1,1 @@
+{"root":["./src/index.ts","./src/commands/add.ts","./src/commands/init.ts","./src/commands/list.ts","./src/installer/dependency-installer.ts","./src/installer/file-installer.ts","./src/registry/registry.ts","./src/utils/paths.ts"],"version":"6.0.3"}
