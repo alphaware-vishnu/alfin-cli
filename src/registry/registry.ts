@@ -59,3 +59,11 @@ export async function fetchThemeCss() {
 export async function fetchThemeProvider() {
   return fetchFromRegistry("theme-provider.tsx", false);
 }
+
+export async function fetchEnums() {
+  return fetchFromRegistry("enums/index.ts", false);
+}
+
+export async function fetchRegistryContextFile(filename: string): Promise<string> {
+  return fetchFromRegistry(`context/${filename}`, false);
+}

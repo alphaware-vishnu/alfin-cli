@@ -4,9 +4,8 @@ import ora from "ora";
 import inquirer from "inquirer";
 import fs from "fs-extra";
 import path from "path";
-import { execSync } from "child_process";
 import { getProjectRoot } from "../utils/paths.js";
-import { fetchRegistryIndex, fetchItemMeta } from "../registry/registry.js";
+import { fetchRegistryIndex, fetchItemMeta, fetchEnums, fetchRegistryContextFile, fetchThemeProvider } from "../registry/registry.js";
 import { installItem } from "./add.js";
 
 // SIDEBAR SECTIONS DEFINITION
@@ -88,22 +87,30 @@ function ensureBarrelExport(filePath: string, exportLine: string) {
   }
 }
 
-function configureEnums(root: string) {
+async function configureEnums(root: string) {
   const enumsDir = path.join(root, "src/enums");
   let enumsFilePath = path.join(enumsDir, "index.tsx");
   if (!fs.existsSync(enumsFilePath) && fs.existsSync(path.join(enumsDir, "index.ts"))) {
     enumsFilePath = path.join(enumsDir, "index.ts");
   }
 
+  let enumsContent = "";
+  try {
+    enumsContent = await fetchEnums();
+  } catch (error: any) {
+    console.log(chalk.yellow(`Warning: failed to fetch standard permissions from registry: ${error.message}. Falling back to default permissions.`));
+    enumsContent = defaultEnumsContent;
+  }
+
   if (!fs.existsSync(enumsFilePath)) {
     fs.ensureDirSync(enumsDir);
-    fs.writeFileSync(enumsFilePath, defaultEnumsContent, "utf8");
+    fs.writeFileSync(enumsFilePath, enumsContent, "utf8");
     console.log(chalk.green("Created src/enums/index.tsx with default resource permissions."));
   } else {
     // Check if RESOURCE_PERMISSIONS exists
     let content = fs.readFileSync(enumsFilePath, "utf8");
     if (!content.includes("RESOURCE_PERMISSIONS")) {
-      content += "\n\n" + defaultEnumsContent;
+      content += "\n\n" + enumsContent;
       fs.writeFileSync(enumsFilePath, content, "utf8");
       console.log(chalk.green("Appended default resource permissions to src/enums index."));
     } else {
@@ -574,7 +581,7 @@ export const applyAuthCommand = new Command()
 
       // Configure Enums
       if (enumsPrompt.setupEnums) {
-        configureEnums(root);
+        await configureEnums(root);
       }
 
       // Configure Interceptors
@@ -590,15 +597,36 @@ export const applyAuthCommand = new Command()
 
       // Configure AppContext if selected
       if (appContextPrompt.setupAppContext) {
-        spinner.text = "Configuring AppContext...";
+        spinner.text = "Configuring contexts...";
 
-        const contextDir = path.join(root, "src/context");
         const contextsDir = path.join(root, "src/contexts");
-
-        fs.ensureDirSync(contextDir);
         fs.ensureDirSync(contextsDir);
 
-        const appContextContent = `import { createContext, useContext, useEffect, useMemo, useState, type ReactNode } from "react";
+        try {
+          // Fetch context files dynamically from registry
+          let authProviderContent = await fetchRegistryContextFile("auth-provider.tsx");
+          const appProviderContent = await fetchRegistryContextFile("app-provider.tsx");
+          const coreAppProviderContent = await fetchRegistryContextFile("core-app-provider.tsx");
+          const themeProviderContent = await fetchThemeProvider();
+
+          // Rewrite auth-provider.tsx import from "./app-context" to "./app-provider"
+          authProviderContent = authProviderContent.replace(/["']\.\/app-context["']/g, '"./app-provider"');
+
+          fs.writeFileSync(path.join(contextsDir, "auth-provider.tsx"), authProviderContent, "utf8");
+          fs.writeFileSync(path.join(contextsDir, "app-provider.tsx"), appProviderContent, "utf8");
+          fs.writeFileSync(path.join(contextsDir, "core-app-provider.tsx"), coreAppProviderContent, "utf8");
+          fs.writeFileSync(path.join(contextsDir, "theme-provider.tsx"), themeProviderContent, "utf8");
+
+          // Create contexts barrel export index.ts
+          const indexContent = `export * from "./auth-provider";\nexport * from "./app-provider";\nexport * from "./core-app-provider";\nexport * from "./theme-provider";\n`;
+          fs.writeFileSync(path.join(contextsDir, "index.ts"), indexContent, "utf8");
+
+          console.log(chalk.green("Configured AuthProvider, AppProvider, CoreAppProvider, and ThemeProvider in src/contexts/"));
+        } catch (fetchErr: any) {
+          console.log(chalk.red(`Failed to fetch context files from registry: ${fetchErr.message}. Writing fallback contents.`));
+          
+          // Fallback static contents
+          const appProviderFallback = `import React, { createContext, useContext, useEffect, useMemo, useState, type ReactNode } from "react";
 
 export type LeadSource = "PERSONAL_LOAN" | "VEHICLE_LOAN" | "ALFIN" | "HEYLON" | "";
 
@@ -656,16 +684,16 @@ export const useAppContext = () => {
 };
 `;
 
-        const appProviderContent = `import React, { createContext, useContext, useState } from "react";
+          const coreAppProviderFallback = `import React, { createContext, useContext, useState } from "react";
 
-interface AppContextType {
+interface CoreAppContextType {
   selectedProduct: string | null;
   setSelectedProduct: (product: string | null) => void;
 }
 
-const AppContext = createContext<AppContextType | undefined>(undefined);
+const CoreAppContext = createContext<CoreAppContextType | undefined>(undefined);
 
-export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+export const CoreAppProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [selectedProduct, setSelectedProductState] = useState<string | null>(() => {
     return localStorage.getItem("selectedProduct");
   });
@@ -680,14 +708,14 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   };
 
   return (
-    <AppContext.Provider value={{ selectedProduct, setSelectedProduct }}>
+    <CoreAppContext.Provider value={{ selectedProduct, setSelectedProduct }}>
       {children}
-    </AppContext.Provider>
+    </CoreAppContext.Provider>
   );
 };
 
 export const useApp = () => {
-  const context = useContext(AppContext);
+  const context = useContext(CoreAppContext);
   if (context === undefined) {
     throw new Error("useApp must be used within an AppProvider");
   }
@@ -695,12 +723,16 @@ export const useApp = () => {
 };
 `;
 
-        const appContextBridgeContent = `export * from "@/context/app-context";\n`;
-
-        fs.writeFileSync(path.join(contextDir, "app-context.tsx"), appContextContent, "utf8");
-        fs.writeFileSync(path.join(contextsDir, "app-provider.tsx"), appProviderContent, "utf8");
-        fs.writeFileSync(path.join(contextsDir, "app-context.ts"), appContextBridgeContent, "utf8");
-        console.log(chalk.green("Configured AppContext and AppProvider source files."));
+          fs.writeFileSync(path.join(contextsDir, "app-provider.tsx"), appProviderFallback, "utf8");
+          fs.writeFileSync(path.join(contextsDir, "core-app-provider.tsx"), coreAppProviderFallback, "utf8");
+          
+          let indexContent = `export * from "./auth-provider";\nexport * from "./app-provider";\nexport * from "./core-app-provider";\n`;
+          if (fs.existsSync(path.join(contextsDir, "theme-provider.tsx"))) {
+            indexContent += `export * from "./theme-provider";\n`;
+          }
+          fs.writeFileSync(path.join(contextsDir, "index.ts"), indexContent, "utf8");
+          console.log(chalk.green("Configured AppProvider and CoreAppProvider fallback source files."));
+        }
       }
 
       // If Layout selected, install layout items and sidebar components

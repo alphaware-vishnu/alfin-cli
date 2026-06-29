@@ -26,667 +26,46 @@ const SIDEBAR_SECTIONS = [
     { name: "Appearance", key: "appearance", placeholder: "APPEARANCE", modules: ["appearance"], routes: ["appearance-routes"] }
 ];
 const defaultEnumsContent = `export enum ResourceType {
-    MODULE = "MODULE",
-    MENU = "MENU",
-    PAGE = "PAGE",
-    ACTION = "ACTION",
+  MODULE = "MODULE",
+  MENU = "MENU",
+  PAGE = "PAGE",
+  ACTION = "ACTION",
 }
 
 export const RESOURCE_PERMISSIONS = {
-    SYSTEM: {
-        USERS: {
-            CODE: "TA1ZXGT1O56Y",
-            CREATE: "5U0HL57VTA0E",
-            DELETE: "PKMUN1Y8F65B",
-            UPDATE: "948LQ1CWSB0L",
-            VIEW: "V83IMGW6L60Y",
-            ENABLE_DISABLE: "ETO7Y5FKW1UB",
-        },
-        ROLES: {
-            CODE: "IPKH59WYPTH4",
-            CREATE: "4OO7QTWXT9BH",
-            DELETE: "6SMLS20H1TOQ",
-            UPDATE: "H0XPIWJ26BLA",
-            VIEW: "N8YLKNE49DW5",
-        },
-        RESOURCE_MANAGEMENT: {
-            CODE: "50M4ZIGATEEO",
-            CREATE: "4RBVOAO2T852",
-            DELETE: "G20W9HD2OK5C",
-            UPDATE: "FJ2TA775NMNK",
-            VIEW: "53GNAW8IW041",
-        },
-        ACTION_MANAGEMENT: {
-            CODE: "8N052NQR8R02",
-            CREATE: "UAW0U29SY36I",
-            DELETE: "5CV68C5PLVTN",
-            UPDATE: "X1MKV1RJP5FX",
-            VIEW: "TPXL1OXOSA7E",
-        },
-        BRANCH: {
-            CODE: "HQT35OHMF9XZ",
-            CREATE: "L57TEIU4UTHG",
-            DELETE: "51EVIFTEDU9Z",
-            UPDATE: "T3KD1GCILIQ0",
-            VIEW: "XCU5I93Y5HSG",
-        },
-        UMS: {
-            CODE: "QRPRCWMZ17PP",
-            CREATE: "Y5Z5VYX4TS0Z",
-        },
-        SETTINGS: {
-            CODE: "QYTXQD2DQR08",
-            CREATE: "3TE3WV2DJGGU",
-            VIEW: "Q3E4358S3V3E",
-            SCHEME: {
-
-            }
-        },
+  SYSTEM: {
+    USERS: {
+      CODE: "SYSTEM_USERS",
+      CREATE: "SYSTEM_USERS_CREATE",
+      DELETE: "SYSTEM_USERS_DELETE",
+      UPDATE: "SYSTEM_USERS_UPDATE",
+      VIEW: "SYSTEM_USERS_VIEW",
     },
-    KAPIL_CAPITAL: {
-        CODE: "6PKAQ7HMZ69Z",
-        UNDERWRITING: {
-            CODE: "HK0WN2OWCC3S",
-            CREATE: "1UKHFNE3NJFF",
-            DELETE: "4RZIBJRAXWQ8",
-            UPDATE: "Q16PLPJUDTJ0",
-            VIEW: "2XFIL5R9DN6O",
-            REJECT: "EK1ISFYUMWJY",
-            APPROVE: "EAD5TFOSQJ9U",
-            DOWNLOAD_SANCTION: "RVT1YO5CBEWK",
-            BANK: {
-                CODE: "F03LMEVYJFJR",
-                VIEW: "QPXNKAYELG0Z",
-                CREATE: "JYBVLIMMWAGN",
-                UPDATE: "WELZBCL1V615",
-                DELETE: "4PU9LYX6EJMM"
-            }
-        },
-        COMMON: {
-            CLOSED_LOAN: {
-                CODE: "IR4723HP7SZB",
-                VIEW: "61CIANGI5JYW"
-            },
-            LOAN_DETAIL: {
-                CODE: "HQSEWSQFWMY6",
-                VIEW: "NVQ6BRAO66GY",
-            },
-            BORROWER_DETAIL: {
-                CODE: "9WRNN4MJIJKE",
-                VIEW: "O4USYVLZNMES"
-            },
-            TRACKING_HISTORY: {
-                CODE: "941DVF29I68B",
-                VIEW: "6L90R20GQ47G"
-            },
-            ACTIVE_LOAN: {
-                CODE: "897SDMIJ4QMF",
-                VIEW: "KD25IPWSDJ8L"
-            },
-            CREDIT_REPORT: {
-                CODE: "2MOR98V9I36X",
-                VIEW: "SWPK0MNB0G5E",
-                REFRESH: "AWY2LVDRNY62",
-                FETCH: "C8IKWHK6BK15",
-                DOWNLOAD: "XTY1VUW86Z57"
-            },
-            PAST_APPLICATIONS: {
-                CODE: "C3Q17JCC83LD",
-                VIEW: "NO9FS53JCUI9"
-            },
-            DOCUMENTS: {
-                CODE: "US42DJOFQA0V",
-                VIEW: "F18EFRLG622C",
-                UPLOAD: "678G0EPH0XXL",
-                DOWNLOAD: "CVWFVB2VCL71",
-                DELETE: "VAYTS8MMBTCZ"
-            }
-        },
-        CLIENTS: {
-            CODE: "OVJ5X6GEFLEF",
-            CREATE: "SN7YOU2ZT50Y",
-            DELETE: "8XWM7G8ZY5RC",
-            UPDATE: "W6EPAKO8ENWS",
-            VIEW: "YDJCN8VRKE2D",
-            CREATE_APPLICATION: "3IKHAU0XRNJL",
-            CONTACT_INFORMATION: {
-                CODE: "ZH8I4EYH8L9E",
-                VIEW: "",
-            },
-            GUARANTOR: {
-                CODE: "RTUBI95B5V98",
-                VIEW: ""
-            },
-            BANK: {
-                CODE: "PFPFNOBRAHHR",
-                VIEW: "DOUM32AOKIAK",
-                CREATE: "KBNXMJAQGK2N",
-                UPDATE: "D8R9QH2OQM8I",
-                DELETE: "H6CUX2EG5DK6"
-            },
-            APP_STAGE: {
-                CODE: "",
-                VIEW: "",
-            },
-
-
-        },
-        ORIGINATION: {
-            CODE: "340WGMJ25TEX",
-            CREATE: "HDB5AE2CH8VH",
-            DELETE: "Y8NJE2MKFOAM",
-            UPDATE: "O0X3AESMQ34H",
-            VIEW: "NWUIVN9CNPAG",
-            REJECT: "P4PMSGDK53H5",
-            BANK: {
-                CODE: "BUW6IXL5OEGE",
-                VIEW: "GURLGEBEY0PF",
-                CREATE: "D5I04YLY85O4",
-                UPDATE: "MCRC8LHIBSCA",
-                DELETE: "2IS8AYAGLR8J"
-            },
-            STEP_STATUS: {
-                CODE: "N29YZ6MQ8P8C",
-                VIEW: "7BITH59O066I",
-                BYPASS: "UZTZV3H4S3K6"
-            }
-        },
-        APPROVAL: {
-            CODE: "HK0WN2OWCC3S",
-            CREATE: "1UKHFNE3NJFF",
-            DELETE: "4RZIBJRAXWQ8",
-            UPDATE: "Q16PLPJUDTJ0",
-            REJECT: 'EK1ISFYUMWJY',
-            APPROVE: "EAD5TFOSQJ9U",
-            DOWNLOAD_SANCTION: "RVT1YO5CBEWK",
-            VIEW: "2XFIL5R9DN6O",
-            BANK: {
-                CODE: "F03LMEVYJFJR",
-                VIEW: 'QPXNKAYELG0Z',
-                CREATE: 'JYBVLIMMWAGN',
-                UPDATE: 'WELZBCL1V615',
-                DELETE: '4PU9LYX6EJMM'
-            }
-        },
-
-        OPERATIONS: {
-            CODE: "DO7VWL7730PL",
-            CREATE: "GZB6Q7CP595G",
-            DELETE: "2ERR3EE6KPEV",
-            UPDATE: "W5FNKMZPTAXQ",
-            VIEW: "3O9XPK58HZHB",
-            DOWNLOAD_SANCTION: "TCVZ8WY6NVLM",
-            BANK: {
-                CODE: "V6ZKW5C7DXUL",
-                VIEW: "OB6TNY1QF29Y",
-                CREATE: "MB1DH43996ZR",
-                UPDATE: "Y1QS9LMB52S1",
-                DELETE: "ROPHUOP9QFPG"
-            },
-            DISBURSEMENT: {
-                CODE: "PCDKUH2INE7L",
-                SEND_FOR_DISBURSAL: "RD1ZWER4PV0W",
-                DISBURSE: "BWN47O085OVD"
-            }
-        },
-        ACCOUNTS: {
-            CODE: "T0NP7YRSLYYB",
-            CREATE: "MZHBACP7KQW1",
-            DELETE: "HK8EHTSHK4VX",
-            UPDATE: "LF30HMQ1FOU2",
-            VIEW: "GX2K56LSYJ96",
-            DELETE_ACCOUNT: "",
-            SUMMARY: {
-                CODE: "",
-                VIEW: ""
-            },
-            REPAYMENT_SCHEDULE: {
-                CODE: "",
-                VIEW: "",
-                DOWNLOAD: "",
-            },
-            REPAYMENT_HISTORY: {
-                CODE: "",
-                VIEW: "",
-
-            },
-            MAKE_PAYMENT: {
-                CODE: "",
-                PAY: ""
-            },
-            BANK: {
-                CODE: "",
-                VIEW: '',
-                CREATE: '',
-                UPDATE: '',
-                DELETE: ''
-            },
-            FORECLOSE: {
-                CODE: "",
-                FORECLOSE: ""
-            },
-
-        },
-    },
-    ASSETIFY: {
-        CODE: "OY04W7JHD7FK",
-        COMMON: {
-            
-            CHECKER:{
-                CODE: "FJ7BW3SW8PUV",
-                CHECK: "TKGV7Z2O1WI9"
-            },
-            
-            NOTES: {
-                CODE: "3E3GOAM0YGDZ",
-                VIEW: "JUQZWHTUBWLY",
-                CREATE: "2ESORO4QXUM6",
-                UPDATE: "C20WV420SCPR",
-                DELETE: "1Y12C8PQDH67"
-            },
-            DOCUMENTS: {
-                CODE: "5WI12YJSDV06",
-                VIEW: "7V4NUM1E3NBA",
-                UPLOAD: "EXQ6AVLKRZ67",
-                DELETE: "J7TQ1U5IWYNY"
-            },
-            TRACKING_HISTORY: {
-                CODE: "RC2Y4IIEY2HY",
-                VIEW: "0CEI7HXDHE2I"
-            },
-            PAST_APPLICATIONS: {
-                CODE: "XKLGTWTUIYFB",
-                VIEW: "V1G50H95K1OA"
-            },
-            PAST_LOANS: {
-                CODE: "5KQO28B03SSK",
-                VIEW: "QFSWHQ5I9Z08"
-            },
-            APPLICATION_STEPPER: {
-                CODE: "TA33OGO4OMR2",
-                VIEW: "KZ8N1TC180GN"
-            },
-            RC_VALIDATION: {
-                CODE: "EM3L0UDPCIC5",
-                VIEW: "F9GG6R4YRMBG",
-                VALIDATE: "EKA81CN7P257"
-            },
-            BORROWER_DETAILS: {
-                CODE: "VGOB9PU2L2HE",
-                VIEW: "E7UPMY5S5XMZ",
-                CREATE: "2KH2RMC5YJIK",
-                UPDATE: "KU4DXJU4X0O6",
-                DELETE: "20FZCR9RU4N6"
-            },
-            ASSET_DETAILS: {
-                CODE: "BMY0W336RYZM",
-                VIEW: "7GXHT800S9JO",
-                UPDATE_RC: "56BQ9YOADNLU"
-            },
-            LOAN_DETAILS: {
-                CODE: "K7TWYDPIBBH5",
-                VIEW: "Y805SLBOH6U0"
-            },
-            PROPERTY_DETAILS: {
-                CODE: "5UUHZUF7DW4T",
-                VIEW: "09LIYMDO0LUE",
-                CREATE: "GMNCZIBHE5XX",
-                UPDATE: "FAC9HIBDQ4UG",
-                DELETE: "46S3P2M3Q25G"
-            },
-            DISBURSEMENT_DETAILS: {
-                CODE: "XA5VULHI1VKT",
-                VIEW: "D5EZDV1SVOTQ",
-                CREATE: "KPVTZZXXUG09",
-                UPDATE: "1IOMZAA3V2Q6",
-                DELETE: "NJ2HTXOBSIO4"
-            }
-        },
-        ORIGINATION: {
-            CODE: "KFH64YRY8RJB",
-            SEND_TO_UNDERWRITING: "0XBLVRIS18A8",
-            CREATE: "9B9D3BSOMCJY",
-            DELETE: "XDPRQ3D829HA",
-            UPDATE: "IFMRRV4RA7XJ",
-            VIEW: "R6Y3R11O20A9",
-            IMPORT: "FIZJVV4JTDPD",
-            EXPORT: "BS0OGUBXJDQA",
-            DISPATCH_KYC_LINK: "YWZUPC1F4OY3",
-            COBORROWER: {
-                CODE: "YWZUPC1F4OY3",
-                VIEW: "JGCQVHH9G7RL",
-                CREATE: "C3XONW17YK1U",
-                UPDATE: "QQM3MOK3X2GR",
-                DELETE: "HLNNMMPZEW1B"
-            },
-            BANK: {
-                CODE: "H0MUYF03LLCR",
-                VIEW: "TWO4HI9ULA4C",
-                CREATE: "X54DGHJ6I7QQ",
-                UPDATE: "ZLN6Y0PK52CU",
-                DELETE: "OWZ5V6JE3F9W",
-            }
-        },
-        UNDERWRITING: {
-            CODE: "6SF6MIZH856I",
-            CREATE: "5HZHW4JQIBBJ",
-            DELETE: "PF3W028BI5K4",
-            UPDATE: "W0DTT4MLX9XZ",
-            VIEW: "REQ1O93V10WU",
-            SANCTION_DOWNLOAD: "EB35F42FEWKM",
-            DISPATCH_SANCTION: "JCNNJJ3C7F6O",
-            BANK: {
-                CODE: "8WUGVQXXZG7D",
-                CREATE: "4QQ1I542GQGN",
-                UPDATE: "1UVFS3SYMCPR",
-                DELETE: "78MHAHOLCHUY",
-                VIEW: "LAEWAIYY4N7F",
-            },
-            CREDIT_REPORT: {
-                CODE: "T1CP9AXAUNGV",
-                VIEW: "3D80Q0RKPO88",
-                REFRESH: "GC4K5ZX7G624",
-                FETCH: "UV5AED5B66NV"
-            },
-            RC_VALIDATION: {
-                CODE: "EM3L0UDPCIC5",
-                VIEW: "F9GG6R4YRMBG",
-                FETCH: "EKA81CN7P257"
-            },
-            ECW_SCORE: {
-                CODE: "9JJDI20W415T",
-                CALCULATE: ""
-            },
-            STATEMENT_ANALYTICS: {
-                CODE: "PH2DWO53YX3G",
-                VALIDATE: "",
-                VIEW: ""
-            },
-            DEAL_PARAMETERS: {
-                CODE: "V6RNJT0TH4TK",
-                VIEW: "5QHVTMEJWW6X",
-                UPDATE: "Q1BROH5BU2JL"
-            },
-            CO_BORROWER: {
-                CODE: "NQEVS0HGMW89",
-                CREATE: "LCWZORNIATFG",
-                VIEW: "E4M6ZGDUP4C0",
-                UPDATE: "1CE95EOGD0IX",
-                DELETE: "YEJPWDQTY32Y"
-            }
-        },
-        OPERATIONS: {
-            CODE: "JQJV9WMC7VV6",
-            // CREATE: "GZB6Q7CP595G",
-            CREATE: "MPSA4A5YE93C",
-            DELETE: "276YQSA0R90N",
-            UPDATE: "454NK0CYZKL5",
-            VIEW: "4WN24NH0QPJI",
-            // DELETE: "2ERR3EE6KPEV",
-            // UPDATE: "W5FNKMZPTAXQ",
-            // VIEW: "3O9XPK58HZHB",
-            DISPATCH_SANCTION: "EB35F42FEWKM",
-            SANCTION_DOWNLOAD: "EB35F42FEWKM",
-            BANK: {
-                CODE: "HDGSHBCGXFAX",
-                VIEW: "9Z34UTT7YEK1",
-                CREATE: "PQFBN2Y8LNW7",
-                UPDATE: "P4TGBEEYLU3D",
-                DELETE: "1XN0OI2LNEIB",
-            },
-            PROCESSING_FEE: {
-                CODE: "D3YQ2LBD3KY2",
-                DISPATCH: "8A65K3JTNI4Q",
-                RE_DISPATCH: "P8GIRS6L3OUG"
-            },
-            MANDATE: {
-                CODE: "E7GKOM4M7U1R",
-                VIEW: "RFZ26GMQK6J2",
-                CREATE: "L4HMKF7F1EHW",
-                UPDATE: "FV46YP27VA7S",
-                DELETE: "WC6BZYGKFM2K"
-            },
-            REPAYMENT_SCHEDULE: {
-                CODE: "E20DAOJLIJ81",
-                VIEW: "GMG2ADHX1NRU"
-            },
-            LOAN_AGREEMENT: {
-                CODE: "4ME469QPVP3N",
-                DISPATCH: "0E2YZ070N5MV"
-            },
-            DISBURSEMENT: {
-                CODE: "29D9NE6089H7",
-                SEND_FOR_DISBURSAL: "QF1PUWPO8Z0Y",
-                DISBURSE: "R50LBA70ERIG"
-            },
-            DEALER: {
-                CODE: "5JKPDYZF8IAF",
-                DISPATCH_DEALER_MAIL: 'PL18W9WK528K',
-                RE_DISPATCH_DEALER_MAIL: "EWKLG0K0LEQ4",
-                UPDATE_DEALER_MAIL: "6KCWMF0K0OUI"
-            }
-        },
-        ACCOUNTS: {
-            CODE: "LHWRZDBL1Q6A",
-            VIEW: "SOQT1VFUSTGB",
-            CREATE: "52IN62S1C67J",
-            UPDATE: "80IMA5HNMF04",
-            DELETE: "1NVVG020YLE3"
-        },
-
-
-    },
-    LMS: {
-        DASHBOARD: {
-            CODE: "DD4O0A3832FX",
-            VIEW: "XQ9NDVZ374BF"
-        },
-        LMS_DASHBOARD: {
-            CODE: "E9LDXZZAXW2H",
-            VIEW: "KV6KNV5Q49ZR"
-        },
-        LOS_DASHBOARD: {
-            CODE: "9X9RBD47DPFG",
-            VIEW: "3GMSG35HNHRD"
-        },
-        LOS_REPORTS: {
-            CODE: "H5R4EI49V7SW",
-            VIEW: "A51UXYDF2K83"
-        },
-        REPORTS: {
-            CODE: "46LW3C3XMC3B",
-            VIEW: "9YL835FA55QY"
-        },
-    },
-    LMS_CORE: {
-        CODE: "GBSYKGME1RLE",
-        OVERVIEW: {
-            CODE: "5LO8DCSM628U",
-            VIEW: "E7U91JFJHUAQ"
-        },
-        REPAYMENT_SCHEDULE: {
-            CODE: "EV25O9QC1TXD",
-            VIEW: "5NQ8UHALYTK9",
-            WAIVE: "0RAEGA43I6C7",
-            VIEW_HISTORY: "AXVJKC0FRXDW"
-        },
-        LEDGER: {
-            CODE: "U0PVDMZC6KN4",
-            VIEW: "5W2PP8W8HKLM"
-        },
-        PAYMENTS: {
-            CODE: "HO20Y13NRYE3",
-            VIEW: "BD34BKCOJOB7",
-            MAKE_PAYMENT: "W1XCZPU7INNF",
-            MAKE_PART_PAYMENT: "AZZNQ49TU1M5"
-        },
-        NACH_PRESENTATION: {
-            CODE: "ZM9K9SNEWPRO",
-            VIEW: "63KZVXZSKWO9",
-            CREATE: "FD4DBHX8G4ED",
-            UPDATE: "4TAA5BC3MG0Y",
-            CANCEL: "0AIQSDPIL8O2",
-            PAUSE: "739MXI6DN5E3",
-            RESUME: "WXMR0KQ05NBV",
-            PRESENT_EMI: "L95PF80H7ZT8"
-        },
-        PENALTY_BOUNCE: {
-            CODE: "LHECYJ6JW9T2",
-        },
-        TRANSACTION: {
-            CODE: "ADISURM2JUUA",
-            VIEW: "EXWR3N2MEWE5"
-        },
-        DISBURSEMENTS: {
-            CODE: "9SWQDS6KWCFM",
-            VIEW_TRANCHE: "HG2LDF1CY98U",
-            CREATE_TRANCHE: "25AAEK3MN3DX",
-            UPDATE_TRANCHE: "3IK9QRUMDBN0",
-            DELETE_TRANCHE: "ACYW40T7YLEP"
-        },
-        AUDIT_TRAIL: {
-            CODE: "NVWXTZHQ85DG",
-            VIEW: "CK5AEO3O7CGI"
-        }
-    },
-    COMMON: {
-        CLIENTS: {
-            CODE: "OVJ5X6GEFLEF",
-            CREATE: "SN7YOU2ZT50Y",
-            DELETE: "8XWM7G8ZY5RC",
-            UPDATE: "W6EPAKO8ENWS",
-            VIEW: "YDJCN8VRKE2D",
-        },
-        APPROVALS: {
-            CODE: "HK0WN2OWCC3S",
-            CREATE: "1UKHFNE3NJFF",
-            DELETE: "4RZIBJRAXWQ8",
-            UPDATE: "Q16PLPJUDTJ0",
-            VIEW: "2XFIL5R9DN6O",
-        },
-        ADDITIONAL_OPERATIONS: {
-            CODE: "E9LDXZZAXW2H",
-            // CREATE: "MPSA4A5YE93C",
-            // DELETE: "276YQSA0R90N",
-            // UPDATE: "454NK0CYZKL5",
-            // VIEW: "4WN24NH0QPJI",
-        },
-    },
-    BUSINESS_LOAN: {
-        CODE: "UXCJVTAK4B72",
-        UNDERWRITING: {
-            CODE: "FKV3SJRR68CU",
-            VIEW: "OBBSP9PMAYTN",
-            INTERNAL_QUERIES: {
-                CODE: "UPVXV43ZP6J1",
-            },
-            STATEMENT_ANALYTICS: {
-                CODE: "M7011ZAC3RFR",
-                VIEW: "OZS6U4EB7U70",
-                VALIDATE: "I8D2F92T45M1",
-                DOWNLOAD: "1LWTIJQR4J1A"
-            },
-            DEAL_PARAMETERS: {
-                CODE: "XDWC2GBDYPQ9",
-                VIEW: "8WMA1UN01MKE",
-                UPDATE: "X2IX7G2A9HA8"
-            },
-        },
-        ORIGINATION: {
-            CODE: "6U5DZ6KISEQB",
-            VIEW: "9KEMEDNZOMB2",
-            RISK_EVALUATION: {
-                CODE: "QUTM8CNQ955A",
-                VIEW: "VVTDOHXW9UK8"
-            }
-        },
-        OPERATIONS: {
-            CODE: "WI4T4Q17EC3Z",
-            VIEW: "ROOFG6A043GG",
-            DISBURSEMENT_DETAILS: {
-                CODE: "3FVZQLE4CWU7",
-                VIEW: "6Q253L8GW6CK"
-            },
-            NACH_ACTIVATION: {
-                CODE: "C62KWTKH9X34",
-                VIEW: "04FE1A03W225"
-            },
-            APPLICATION_STEPPER: {
-                CODE: "B0KXX4NZ1DJY",
-                VIEW: "7VM2HP327F0M"
-            }
-        },
-        COMMON: {
-            CODE: "5HM2O1XTX6KC",
-            BORROWER_DETAILS: {
-                CODE: "CKYBNOUK7JF6",
-                VIEW: "KO2V3XM6OLZL",
-                UPDATE: "FDCHWQYW5UT5",
-            },
-            DOCUMENTS: {
-                CODE: "TTJDVH5OLUR0",
-                VIEW: "NB5YCVQ499T0",
-                UPDATE: "KP2T77O8TH8I",
-                DELETE: "Q59L3J5FRKX0",
-                DOWNLOAD: "OC8YZY1UPOKL",
-                UPLOAD: "YFNC27291JA8",
-            },
-            TRACKING_HISTORY: {
-                CODE: "RUKXLO9WW2HD",
-                VIEW: "4KGICSQ9J7KQ",
-            },
-            BANK: {
-                CODE: "2IHAQJX52L0R",
-                VIEW: "L9CQBDQX1CNH",
-                CREATE: "G4ZP14C9PWLB",
-                UPDATE: "VV45ACWEYF4G",
-                DELETE: "0305H1TR4NNS",
-            },
-            PAST_APPLICATIONS: {
-                CODE: "7WVRXD5SW05N",
-                VIEW: "V71RAFOKZ2YZ",
-            },
-            PAST_LOANS: {
-                CODE: "PTV0XR5L3MO9",
-                VIEW: "MAIULMN7Y33Y",
-            },
-            NOTES: {
-                CODE: "H3IH8QC2AKLY",
-                VIEW: "Q70KCB94OF7H",
-                CREATE: "GX1HV1HUXWAZ",
-                UPDATE: "B4IJ0OBH4ZG2",
-                DELETE: "X8DMYUEH8RZV",
-            },
-            LOAN_DETAILS: {
-                CODE: "0DW6RKWERPYR",
-                VIEW: "PTVFIT35QBLE",
-            }
-        }
+    ROLES: {
+      CODE: "SYSTEM_ROLES",
+      CREATE: "SYSTEM_ROLES_CREATE",
+      DELETE: "SYSTEM_ROLES_DELETE",
+      UPDATE: "SYSTEM_ROLES_UPDATE",
+      VIEW: "SYSTEM_ROLES_VIEW",
     }
-} as const;
-
-
-
-export enum ResourceAction {
-    CREATE = "CREATE",
-    READ = "READ",
-    UPDATE = "UPDATE",
-    DELETE = "DELETE",
-}
-
-export function generateActions(actions: {
-    VIEW?: string,
-    CREATE?: string,
-    UPDATE?: string,
-    DELETE?: string
-}) {
-    return {
-        VIEW: actions.VIEW || "",
-        CREATE: actions.CREATE || "",
-        UPDATE: actions.UPDATE || "",
-        DELETE: actions.DELETE || "",
-    }
-}`;
+  },
+  ASSETIFY: {
+    ORIGINATION: { CODE: "ASSETIFY_ORIGINATION" },
+    UNDERWRITING: { CODE: "ASSETIFY_UNDERWRITING" },
+    OPERATIONS: { CODE: "ASSETIFY_OPERATIONS" },
+    ACCOUNTS: { CODE: "ASSETIFY_ACCOUNTS" },
+  },
+  KAPIL_CAPITAL: {
+    ORIGINATION: { CODE: "KAPIL_CAPITAL_ORIGINATION" },
+    OPERATIONS: { CODE: "KAPIL_CAPITAL_OPERATIONS" },
+    ACCOUNTS: { CODE: "KAPIL_CAPITAL_ACCOUNTS" },
+  },
+  LMS: {
+    DASHBOARD: { CODE: "LMS_DASHBOARD" },
+    LOS_DASHBOARD: { CODE: "LMS_LOS_DASHBOARD" },
+  }
+};
+`;
 function ensureBarrelExport(filePath, exportLine) {
     try {
         fs_extra_1.default.ensureDirSync(path_1.default.dirname(filePath));
@@ -709,52 +88,30 @@ function ensureBarrelExport(filePath, exportLine) {
         console.log(chalk_1.default.yellow(`Failed to update barrel export ${filePath}: ${error.message}`));
     }
 }
-function configureTurnstileInHtml(root) {
-    const htmlPath = path_1.default.join(root, "index.html");
-    if (!fs_extra_1.default.existsSync(htmlPath))
-        return;
-    try {
-        let content = fs_extra_1.default.readFileSync(htmlPath, "utf8");
-        const turnstileScript = `<script
-  src="https://challenges.cloudflare.com/turnstile/v0/api.js"
-  async
-  defer
-></script>`;
-        if (!content.includes("challenges.cloudflare.com/turnstile")) {
-            const headCloseIndex = content.indexOf("</head>");
-            if (headCloseIndex !== -1) {
-                content = content.substring(0, headCloseIndex) + "    " + turnstileScript + "\n  " + content.substring(headCloseIndex);
-                fs_extra_1.default.writeFileSync(htmlPath, content, "utf8");
-                console.log(chalk_1.default.green("Added Cloudflare Turnstile script to index.html head."));
-            }
-            else {
-                console.log(chalk_1.default.yellow("Could not find </head> tag in index.html. Skipping script injection."));
-            }
-        }
-        else {
-            console.log(chalk_1.default.yellow("Cloudflare Turnstile script already present in index.html."));
-        }
-    }
-    catch (error) {
-        console.log(chalk_1.default.red(`Failed to configure Turnstile script in index.html: ${error.message}`));
-    }
-}
-function configureEnums(root) {
+async function configureEnums(root) {
     const enumsDir = path_1.default.join(root, "src/enums");
     let enumsFilePath = path_1.default.join(enumsDir, "index.tsx");
     if (!fs_extra_1.default.existsSync(enumsFilePath) && fs_extra_1.default.existsSync(path_1.default.join(enumsDir, "index.ts"))) {
         enumsFilePath = path_1.default.join(enumsDir, "index.ts");
     }
+    let enumsContent = "";
+    try {
+        enumsContent = await (0, registry_js_1.fetchEnums)();
+    }
+    catch (error) {
+        console.log(chalk_1.default.yellow(`Warning: failed to fetch standard permissions from registry: ${error.message}. Falling back to default permissions.`));
+        enumsContent = defaultEnumsContent;
+    }
     if (!fs_extra_1.default.existsSync(enumsFilePath)) {
         fs_extra_1.default.ensureDirSync(enumsDir);
-        fs_extra_1.default.writeFileSync(enumsFilePath, defaultEnumsContent, "utf8");
+        fs_extra_1.default.writeFileSync(enumsFilePath, enumsContent, "utf8");
         console.log(chalk_1.default.green("Created src/enums/index.tsx with default resource permissions."));
     }
     else {
         // Check if RESOURCE_PERMISSIONS exists
         let content = fs_extra_1.default.readFileSync(enumsFilePath, "utf8");
         if (!content.includes("RESOURCE_PERMISSIONS")) {
-            content += "\n\n" + defaultEnumsContent;
+            content += "\n\n" + enumsContent;
             fs_extra_1.default.writeFileSync(enumsFilePath, content, "utf8");
             console.log(chalk_1.default.green("Appended default resource permissions to src/enums index."));
         }
@@ -1184,10 +541,8 @@ exports.applyAuthCommand = new commander_1.Command()
         spinner.text = "Saved credentials to .env";
         // Configure Enums
         if (enumsPrompt.setupEnums) {
-            configureEnums(root);
+            await configureEnums(root);
         }
-        // Configure Turnstile Script in HTML
-        configureTurnstileInHtml(root);
         // Configure Interceptors
         if (interceptorPrompt.setupInterceptors) {
             spinner.text = "Installing interceptors...";
@@ -1199,10 +554,30 @@ exports.applyAuthCommand = new commander_1.Command()
         }
         // Configure AppContext if selected
         if (appContextPrompt.setupAppContext) {
-            spinner.text = "Configuring AppContext...";
+            spinner.text = "Configuring contexts...";
             const contextsDir = path_1.default.join(root, "src/contexts");
             fs_extra_1.default.ensureDirSync(contextsDir);
-            const appContextContent = `import { createContext, useContext, useEffect, useMemo, useState, type ReactNode } from "react";
+            try {
+                // Fetch context files dynamically from registry
+                let authProviderContent = await (0, registry_js_1.fetchRegistryContextFile)("auth-provider.tsx");
+                const appProviderContent = await (0, registry_js_1.fetchRegistryContextFile)("app-provider.tsx");
+                const coreAppProviderContent = await (0, registry_js_1.fetchRegistryContextFile)("core-app-provider.tsx");
+                const themeProviderContent = await (0, registry_js_1.fetchThemeProvider)();
+                // Rewrite auth-provider.tsx import from "./app-context" to "./app-provider"
+                authProviderContent = authProviderContent.replace(/["']\.\/app-context["']/g, '"./app-provider"');
+                fs_extra_1.default.writeFileSync(path_1.default.join(contextsDir, "auth-provider.tsx"), authProviderContent, "utf8");
+                fs_extra_1.default.writeFileSync(path_1.default.join(contextsDir, "app-provider.tsx"), appProviderContent, "utf8");
+                fs_extra_1.default.writeFileSync(path_1.default.join(contextsDir, "core-app-provider.tsx"), coreAppProviderContent, "utf8");
+                fs_extra_1.default.writeFileSync(path_1.default.join(contextsDir, "theme-provider.tsx"), themeProviderContent, "utf8");
+                // Create contexts barrel export index.ts
+                const indexContent = `export * from "./auth-provider";\nexport * from "./app-provider";\nexport * from "./core-app-provider";\nexport * from "./theme-provider";\n`;
+                fs_extra_1.default.writeFileSync(path_1.default.join(contextsDir, "index.ts"), indexContent, "utf8");
+                console.log(chalk_1.default.green("Configured AuthProvider, AppProvider, CoreAppProvider, and ThemeProvider in src/contexts/"));
+            }
+            catch (fetchErr) {
+                console.log(chalk_1.default.red(`Failed to fetch context files from registry: ${fetchErr.message}. Writing fallback contents.`));
+                // Fallback static contents
+                const appProviderFallback = `import React, { createContext, useContext, useEffect, useMemo, useState, type ReactNode } from "react";
 
 export type LeadSource = "PERSONAL_LOAN" | "VEHICLE_LOAN" | "ALFIN" | "HEYLON" | "";
 
@@ -1259,16 +634,16 @@ export const useAppContext = () => {
   return context;
 };
 `;
-            const appProviderContent = `import React, { createContext, useContext, useState } from "react";
+                const coreAppProviderFallback = `import React, { createContext, useContext, useState } from "react";
 
-interface AppContextType {
+interface CoreAppContextType {
   selectedProduct: string | null;
   setSelectedProduct: (product: string | null) => void;
 }
 
-const AppContext = createContext<AppContextType | undefined>(undefined);
+const CoreAppContext = createContext<CoreAppContextType | undefined>(undefined);
 
-export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+export const CoreAppProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [selectedProduct, setSelectedProductState] = useState<string | null>(() => {
     return localStorage.getItem("selectedProduct");
   });
@@ -1283,23 +658,29 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   };
 
   return (
-    <AppContext.Provider value={{ selectedProduct, setSelectedProduct }}>
+    <CoreAppContext.Provider value={{ selectedProduct, setSelectedProduct }}>
       {children}
-    </AppContext.Provider>
+    </CoreAppContext.Provider>
   );
 };
 
 export const useApp = () => {
-  const context = useContext(AppContext);
+  const context = useContext(CoreAppContext);
   if (context === undefined) {
     throw new Error("useApp must be used within an AppProvider");
   }
   return context;
 };
 `;
-            fs_extra_1.default.writeFileSync(path_1.default.join(contextsDir, "app-context.tsx"), appContextContent, "utf8");
-            fs_extra_1.default.writeFileSync(path_1.default.join(contextsDir, "app-provider.tsx"), appProviderContent, "utf8");
-            console.log(chalk_1.default.green("Configured AppContext and AppProvider source files."));
+                fs_extra_1.default.writeFileSync(path_1.default.join(contextsDir, "app-provider.tsx"), appProviderFallback, "utf8");
+                fs_extra_1.default.writeFileSync(path_1.default.join(contextsDir, "core-app-provider.tsx"), coreAppProviderFallback, "utf8");
+                let indexContent = `export * from "./auth-provider";\nexport * from "./app-provider";\nexport * from "./core-app-provider";\n`;
+                if (fs_extra_1.default.existsSync(path_1.default.join(contextsDir, "theme-provider.tsx"))) {
+                    indexContent += `export * from "./theme-provider";\n`;
+                }
+                fs_extra_1.default.writeFileSync(path_1.default.join(contextsDir, "index.ts"), indexContent, "utf8");
+                console.log(chalk_1.default.green("Configured AppProvider and CoreAppProvider fallback source files."));
+            }
         }
         // If Layout selected, install layout items and sidebar components
         if (layoutAnswer.setupLayout) {
@@ -1454,7 +835,8 @@ export const AppRoutes = () => {
             await ensureSettingsBarrelExports(root, registry, finalModulesToInstall);
         }
         if (appContextPrompt.setupAppContext) {
-            ensureBarrelExport(path_1.default.join(root, "src/contexts/index.ts"), "export { useAppContext } from './app-context';");
+            ensureBarrelExport(path_1.default.join(root, "src/context/index.ts"), "export * from './app-context';");
+            ensureBarrelExport(path_1.default.join(root, "src/contexts/index.ts"), "export * from './app-context';");
             ensureBarrelExport(path_1.default.join(root, "src/contexts/index.ts"), "export * from './app-provider';");
         }
         ensureBarrelExport(path_1.default.join(root, "src/pages/auth/index.ts"), "export * from './login';");

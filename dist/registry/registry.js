@@ -8,6 +8,8 @@ exports.fetchItemMeta = fetchItemMeta;
 exports.fetchItemSource = fetchItemSource;
 exports.fetchThemeCss = fetchThemeCss;
 exports.fetchThemeProvider = fetchThemeProvider;
+exports.fetchEnums = fetchEnums;
+exports.fetchRegistryContextFile = fetchRegistryContextFile;
 const axios_1 = __importDefault(require("axios"));
 const paths_js_1 = require("../utils/paths.js");
 const fs_extra_1 = __importDefault(require("fs-extra"));
@@ -62,4 +64,10 @@ async function fetchThemeCss() {
 }
 async function fetchThemeProvider() {
     return fetchFromRegistry("theme-provider.tsx", false);
+}
+async function fetchEnums() {
+    return fetchFromRegistry("enums/index.ts", false);
+}
+async function fetchRegistryContextFile(filename) {
+    return fetchFromRegistry(`context/${filename}`, false);
 }
